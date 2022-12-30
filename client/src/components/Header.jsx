@@ -6,8 +6,8 @@ const Header = () => {
   const { logout } = useAuth();
 
   return (
-    <div className="bg-white shadow-md p-4">
-      <div className=" max-w-3xl mx-auto flex justify-between">
+    <header className="bg-white shadow-md py-4">
+      <div className=" max-w-3xl mx-auto flex justify-between px-8">
         <img src={logo} alt="" />
         <button
           onClick={() => logout()}
@@ -16,7 +16,7 @@ const Header = () => {
           Log out
         </button>
       </div>
-    </div>
+    </header>
   );
 };
 
