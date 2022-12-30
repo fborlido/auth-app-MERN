@@ -2,36 +2,47 @@ import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import { createPost } from "../api/posts";
-import { useNavigate } from "react-router-dom";
+import { createPost, updatePost } from "../api/posts";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NewPost = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const { mutate } = useMutation({
+  const { mutate: create } = useMutation({
     mutationFn: createPost,
+    onSuccess: () => navigate("/"),
+  });
+
+  const { mutate: update } = useMutation({
+    mutationFn: updatePost,
     onSuccess: () => navigate("/"),
   });
 
   return (
     <div className="">
+      <Link
+        to=".."
+        className="border-2 border-sky-500 py-1 px-6 text-sky-500 rounded-md hover:bg-sky-500 hover:text-white transition-colors mb-4 block w-fit "
+      >
+        Back
+      </Link>
       <h1 className="text-3xl font-bold mb-4">Create a new Post</h1>
       <Formik
         initialValues={{
-          title: "",
-          content: "",
+          title: state?.title || "",
+          content: state?.content || "",
         }}
         validationSchema={yup.object({
-          title: yup
-            .string()
-            .required("Please provide a title")
-            .min(10, "Title is too short"),
-          content: yup
-            .string()
-            .required("Please provide the content")
-            .min(10, "Story is too short... :("),
+          title: yup.string().required("Please provide a title"),
+          // .min(10, "Title is too short"),
+          content: yup.string().required("Please provide the content"),
+          // .min(10, "Story is too short... :("),
         })}
-        onSubmit={(values) => mutate(values)}
+        onSubmit={(values) => {
+          if (Boolean(state?._id)) update({...values, id: state._id});
+          else create(values);
+        }}
       >
         {({ errors, touched }) => (
           <Form>

@@ -22,12 +22,10 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (isLoggedIn !== null) {
-      if (isLoggedIn) {
-        navigate("/");
-      } else {
-        navigate("/login");
-      }
+    if (isLoggedIn) {
+      navigate("/");
+    } else {
+      navigate("/login");
     }
   }, [isLoggedIn]);
 

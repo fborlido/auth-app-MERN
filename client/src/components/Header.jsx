@@ -9,7 +9,10 @@ const Header = () => {
     <div className="bg-white shadow-md p-4">
       <div className=" max-w-3xl mx-auto flex justify-between">
         <img src={logo} alt="" />
-        <button onClick={() => logout()} className="btn">
+        <button
+          onClick={() => logout()}
+          className="text-sky-500 font-medium underline"
+        >
           Log out
         </button>
       </div>
