@@ -23,7 +23,8 @@ const Post = () => {
         Back
       </Link>
       <div className="bg-white shadow-sm p-4 rounded-md border">
-        <h2 className="text-sky-600 font-bold text-2xl mb-4">{state.title}</h2>
+        <h2 className="text-sky-600 font-bold text-2xl mb-1">{state.title}</h2>
+        <h3 className="mb-4 text-slate-500a">By: {state.author.name}</h3>
         <p>{state.content}</p>
       </div>
       <div className="flex justify-end gap-4">

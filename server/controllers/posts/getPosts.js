@@ -2,7 +2,7 @@ import Post from "../../models/Post.js";
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("author", "name email");
     if (!posts) {
       throw new Error("No posts were found");
     }
